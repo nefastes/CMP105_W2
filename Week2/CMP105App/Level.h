@@ -31,9 +31,9 @@ private:
 
 	sf::Vector2f startMousePos;
 	sf::Vector2f endMousePos;
-	bool drag;
-	bool resultDisplayed;
+	bool drag = false;
+	bool resultDisplayed = false;
 
-	bool renderCircle;
+	bool renderCircle = false;
 	sf::CircleShape circle;
 };
