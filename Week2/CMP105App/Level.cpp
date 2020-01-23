@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "math.h"
 
 Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
@@ -48,6 +49,30 @@ void Level::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::Escape);
 		window->close();
+	}
+
+	//Calaculate drag when left click
+	if (input->isMouseLDown() && !drag)
+	{
+		startMousePos = sf::Vector2f(input->getMouseX(), input->getMouseY());
+		drag = true;
+	}
+	else if (drag)
+	{
+		endMousePos = sf::Vector2f(input->getMouseX(), input->getMouseY());
+		if (!input->isMouseLDown())
+		{
+			drag = false;
+			resultDisplayed = false;
+		}
+	}
+	else if(!resultDisplayed)
+	{
+		float deltaY = endMousePos.y - startMousePos.y;
+		float deltaX = endMousePos.x - startMousePos.x;
+		float distanceBetweenPos = sqrt(deltaY * deltaY + deltaX * deltaX);
+		std::cout << "The distance of the drag is " << distanceBetweenPos << " !" << std::endl;
+		resultDisplayed = true;
 	}
 }
 

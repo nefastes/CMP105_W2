@@ -28,4 +28,9 @@ private:
 	sf::Font font;
 	sf::Text text;
 	std::string mouseString;
+
+	sf::Vector2f startMousePos;
+	sf::Vector2f endMousePos;
+	bool drag;
+	bool resultDisplayed;
 };
