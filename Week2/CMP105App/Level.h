@@ -33,4 +33,7 @@ private:
 	sf::Vector2f endMousePos;
 	bool drag;
 	bool resultDisplayed;
+
+	bool renderCircle;
+	sf::CircleShape circle;
 };

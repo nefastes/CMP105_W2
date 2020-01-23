@@ -7,11 +7,16 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
+	//Mouse pos string
 	if (!font.loadFromFile("font/arial.ttf")) std::cout << "Could not load font.\n";
 	text.setFont(font);
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
 	text.setPosition(0, 0);
+
+	//Circle
+	circle.setRadius(10);
+	circle.setFillColor(sf::Color::Yellow);
 }
 
 Level::~Level()
@@ -74,6 +79,10 @@ void Level::handleInput()
 		std::cout << "The distance of the drag is " << distanceBetweenPos << " !" << std::endl;
 		resultDisplayed = true;
 	}
+
+	//Render a circle on right click
+	if (input->isMouseRDown())	renderCircle = true;
+	else renderCircle = false;
 }
 
 // Update game objects
@@ -85,6 +94,9 @@ void Level::update()
 	mouseString += ",";
 	mouseString += std::to_string(input->getMouseY());
 	text.setString(mouseString);
+
+	//Update circle pos
+	if(renderCircle) circle.setPosition(input->getMouseX(), input->getMouseY());
 }
 
 // Render level
@@ -92,6 +104,7 @@ void Level::render()
 {
 	beginDraw();
 	window->draw(text);
+	window->draw(circle);
 	endDraw();
 }
 
