@@ -11,8 +11,8 @@ private:
 	// Mouse structure, store mouse relevant information
 	struct Mouse
 	{
-		int x, y;
-		bool left, right;
+		int x = 0, y = 0;
+		bool left = false, right = false;
 	};
 
 public:
@@ -20,6 +20,8 @@ public:
 	void setKeyDown(int key);
 	void setKeyUp(int key);
 	bool isKeyDown(int key);
+	void setKeyCode(int key);
+	int getKeyCode();
 
 	// Functions are mouse input, including getting and setting current position and mouse button presses.
 	void setMouseX(int lx);
@@ -37,4 +39,6 @@ private:
 	bool keys[256]{ false };
 	// Mouse variable
 	Mouse mouse;
+	//Key code
+	int code;
 };

@@ -25,6 +25,16 @@ bool Input::isKeyDown(int key)
 	return false;
 }
 
+void Input::setKeyCode(int key)
+{
+	code = key;
+}
+
+int Input::getKeyCode()
+{
+	return code;
+}
+
 void Input::setMouseX(int lx)
 {
 	mouse.x = lx;

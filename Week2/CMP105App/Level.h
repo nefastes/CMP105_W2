@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-class Level{
+class Level {
 public:
 	Level(sf::RenderWindow* hwnd, Input* in);
 	~Level();
@@ -27,7 +27,6 @@ private:
 	// Add your object here
 	sf::Font font;
 	sf::Text text;
-	std::string mouseString;
 
 	sf::Vector2f startMousePos;
 	sf::Vector2f endMousePos;
@@ -36,4 +35,12 @@ private:
 
 	bool renderCircle = false;
 	sf::CircleShape circle;
+
+	int index = 0;
+	bool next = true;
+	int konami[11] = {
+						sf::Keyboard::Up,sf::Keyboard::Up,sf::Keyboard::Down,sf::Keyboard::Down,sf::Keyboard::Left,
+						sf::Keyboard::Right,sf::Keyboard::Left,sf::Keyboard::Right,sf::Keyboard::B,sf::Keyboard::A,
+						sf::Keyboard::Enter
+	};
 };

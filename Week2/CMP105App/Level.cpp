@@ -35,18 +35,12 @@ void Level::handleInput()
 	}
 
 	//if J,K & L are pressed together, output it to the console
-	if (input->isKeyDown(sf::Keyboard::J))
+	if (input->isKeyDown(sf::Keyboard::J) && input->isKeyDown(sf::Keyboard::K) && input->isKeyDown(sf::Keyboard::L))
 	{
-		if (input->isKeyDown(sf::Keyboard::K))
-		{
-			if (input->isKeyDown(sf::Keyboard::L))
-			{
-				input->setKeyUp(sf::Keyboard::J);
-				input->setKeyUp(sf::Keyboard::K);
-				input->setKeyUp(sf::Keyboard::L);
-				std::cout << "J,K & L are pressed together." << std::endl;
-			}
-		}
+		input->setKeyUp(sf::Keyboard::J);
+		input->setKeyUp(sf::Keyboard::K);
+		input->setKeyUp(sf::Keyboard::L);
+		std::cout << "J,K & L are pressed together." << std::endl;
 	}
 
 	//Closes when ESC is pressed
@@ -81,19 +75,41 @@ void Level::handleInput()
 	}
 
 	//Render a circle on right click
-	if (input->isMouseRDown())	renderCircle = true;
+	if (input->isMouseRDown()) renderCircle = true;
 	else renderCircle = false;
+
+	//Konami code
+	if (next && input->getKeyCode() != -1)
+	{
+		if (input->getKeyCode() == konami[index])
+		{
+			std::cout << "Made it this far" << std::endl;
+			std::cout << index << std::endl;
+			++index;
+			next = false;
+		}
+		else if (input->getKeyCode() != konami[index])
+		{
+			index = 0;
+			next = false;
+		}
+	}
+	else if (index == 11)
+	{
+		std::cout << "You did the konami code !" << std::endl;
+	}
+	else if (!input->isKeyDown(input->getKeyCode()))
+	{
+		next = true;
+		input->setKeyCode(-1);
+	}
 }
 
 // Update game objects
 void Level::update()
 {
 	//Update and output the current mouse postion
-	mouseString = "Current Position: ";
-	mouseString += std::to_string(input->getMouseX());
-	mouseString += ",";
-	mouseString += std::to_string(input->getMouseY());
-	text.setString(mouseString);
+	text.setString("Current Position: " + std::to_string(input->getMouseX()) + "," + std::to_string(input->getMouseY()));
 
 	//Update circle pos
 	if(renderCircle) circle.setPosition(input->getMouseX(), input->getMouseY());
